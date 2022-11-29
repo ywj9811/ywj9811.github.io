@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: '만만세',
-  author: '뚱인데요',
-  headerTitle: '뚱이 Blog',
+  title: '개발일지',
+  author: 'ywj9811',
+  headerTitle: '개발 Blog',
   description: '개발일지',
   language: 'en-us',
   theme: 'system', // system, dark or light
