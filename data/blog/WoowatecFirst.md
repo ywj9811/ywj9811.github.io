@@ -25,7 +25,7 @@ summary: 우아한테크코스 프리코스 1주차가 끝났다.
 
 ## 이번 주차를 시작하며
 
-![ocean](/static/images/wtc1.png)
+![wtc1](/static/images/wtc1.png)
 
 ---
 
@@ -56,7 +56,7 @@ summary: 우아한테크코스 프리코스 1주차가 끝났다.
 
 물론 문제의 경우도 5번 까지는 나름 수월하게 진행을 하였으나 6번과 7번 문제의 경우 굉장히 어려웠던 것 같다.
 
-![ocean](/static/images/test01.png)
+![test01](/static/images/test01.png)
 
 **문제를 모두 풀고 나름대로의 테스트 코드를 추가해 가며 나의 코드를 열심히 테스트 하며 노트북을 혹사 시킨 끝에 무사히 제출할 수 있었다.**
 
