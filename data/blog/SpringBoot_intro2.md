@@ -1,7 +1,7 @@
 ---
 title: 스프링 부트 MVC 와 API에 대해서
 date: '2022-8-28'
-tags: ['spring boot', '인프런', '김영한', '스프링 입문']
+tags: ['spring boot', '인프런', '김영한']
 draft: false
 summary: model / view / controller 를 사용하는 것을 의미한다.
 ---

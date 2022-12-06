@@ -1,7 +1,7 @@
 ---
 title: 스프링 부트 설정과 시작
 date: '2022-8-27'
-tags: ['spring boot', '인프런', '김영한', '스프링 입문']
+tags: ['spring boot', '인프런', '김영한']
 draft: false
 summary: https://start.spring.io/ 에서 스프링 부트를 프로젝트를 생성하고 시작할 수 있다.
 ---
