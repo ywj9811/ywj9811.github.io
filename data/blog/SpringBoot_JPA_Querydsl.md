@@ -1,6 +1,6 @@
 ---
 title: Querydsl
-date: '2022-12-09'
+date: '2022-12-08'
 tags: ['spring boot', 'JPA', '인프런', '김영한', '기술']
 draft: false
 summary: Querydsl은 무엇일까?그냥 Query를 직접 작성하면 어떤 불편한 점이 있을까? 에 대해서 우선 생각해보자.
