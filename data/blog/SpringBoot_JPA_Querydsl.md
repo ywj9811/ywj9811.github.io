@@ -262,4 +262,4 @@ public class QuerydslConfig {
 }
 ```
 
-**위와 같은 Config를 사용하도록 설정을 하면 이제 JPA + Spring Data JPA + Querydsl을 사용하게 된다.**
+**위와 같은 Config를 사용하도록 설정을 하면 이제 JPA + Querydsl을 사용하게 된다.**
