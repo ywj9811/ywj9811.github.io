@@ -1,7 +1,7 @@
 ---
 title: TDD? 단위 테스트?
 date: '2022-11-12'
-tags: ['우아한테크코스', '프리코스', '기술']
+tags: ['우아한테크코스5기', '프리코스', '기술']
 draft: false
 summary: 'TDD가 뭘까? TDD란 Test Driven Development의 약자로 테스트 주도 개발 이라고 한다. 테스트 주도 개발은...'
 authors: ['default']

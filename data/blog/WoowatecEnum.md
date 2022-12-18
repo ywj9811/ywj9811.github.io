@@ -1,7 +1,7 @@
 ---
 title: Enum을 사용하면 무엇이 좋을까
 date: '2022-11-20'
-tags: ['우아한테크코스', '프리코스', '기술']
+tags: ['우아한테크코스5기', '프리코스', '기술']
 draft: false
 summary: '우테코의 피드백을 확인했더니 연관된 상수의 경우 private final 상수보다 enum을 활용하기를 권장하고 있었다.
 enum은 무엇이 장점이길래 private final 상수보다 enum을 권장하는 것일까?'
@@ -95,7 +95,6 @@ public abstract class Enum<E extends Enum<E>> ... {
     </aside>
     
     **따라서 ordinal을 사용하는 것은 추천하는 방식이 아니다.**
-
 
 **즉, ordinal이 아닌 새로운 값이 추가되어도 뒤의 값이 변경되지 않는 name을 사용하는 것을 권장한다.**
 

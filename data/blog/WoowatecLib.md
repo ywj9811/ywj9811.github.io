@@ -1,7 +1,7 @@
 ---
 title: 우아한테크코스의 라이브러리
 date: '2022-11-06'
-tags: ['우아한테크코스', '프리코스']
+tags: ['우아한테크코스5기', '프리코스']
 draft: false
 summary: 'camp.nextstep.edu.missionutils.Console 이 무엇이고 camp.nextstep.edu.missionutils.Randoms는 무엇일까?'
 authors: ['default']
@@ -268,7 +268,7 @@ public static <T> List<T> shuffle(final List<T> list) {
   final int endInclusive,
   final int count
   )
-      → **startInclusive부터 endInclusive까지 순서대로 리스트에 추가하고 해당 리스트를 랜덤으로 섞은 후 0번 ~ count-1번 인덱스 까지 잘라낸 리스트로 반환한다.**
+  → **startInclusive부터 endInclusive까지 순서대로 리스트에 추가하고 해당 리스트를 랜덤으로 섞은 후 0번 ~ count-1번 인덱스 까지 잘라낸 리스트로 반환한다.**
 - **`shuffle(final List<T> list)`**
   **→ 넘어온 리스트를 `Collections.shuffle`을 통해 섞어준다.**
 - **`validateNumbers(final List<Integer> numbers)`**
