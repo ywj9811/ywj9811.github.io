@@ -132,7 +132,7 @@ public class InternalCallV1Test {
   >
   > 4. **트랜잭션을 적용하지 않고 (대상 객체)실제 `callService` 의 객체 인스턴스인 `external()` 을 호출하게 된다.**
   > 5. **이때 `external()` 은 내부에서 `internal()` 메소드를 호출하는데 여기서 `@Transactional` 을 만나게 되면서 문제가 생기는 것이다.**
-  **즉 `external()` 을 처리할 때 프록시가 생성되어 트랜잭션이 선언되지 않은 것을 확인하고 이미 대상 객체에게 넘기게 되었는데 이후에 같은 대상 객체에 존재하며 트랜잭션이 되어있는 메소드를 호출하게 되어 프록시를 적용할 수 없어 문제가 발생하는 것이다.**
+  >    **즉 `external()` 을 처리할 때 프록시가 생성되어 트랜잭션이 선언되지 않은 것을 확인하고 이미 대상 객체에게 넘기게 되었는데 이후에 같은 대상 객체에 존재하며 트랜잭션이 되어있는 메소드를 호출하게 되어 프록시를 적용할 수 없어 문제가 발생하는 것이다.**
 
 ---
 
@@ -230,3 +230,60 @@ public class InternalCall2Test {
 > 3. **`callService` 는 주입 받은 `internalService.internal()` 을 호출한다.**
 > 4. **`internalService` 는 트랜잭션 프록시이다. `internal()` 메서드에 `@Transactional` 이 붙어있으므로 트랜잭션 프록시는 트랜잭션을 적용한다.**
 > 5. **트랜잭션 적용 후 실제 `internalService` 객체 인스턴스의 `internal()` 을 호출한다.**
+
+---
+
+## **초기화 시점**
+
+**스프링 초기화 시점에서는 트랜잭션 AOP가 적용되지 않을 수 있다.**
+
+```java
+@SpringBootTest
+public class InitTxTest {
+
+    @Test
+    void go() {
+        // 초기화 코드는 스프링이 초기화 시점에서 실행
+        //@PostConstruct 는 초기화 시점에서 자동으로 실행
+        //@EventListener(ApplicationReadyEvent.class) 는 컨테이너가 로딩 완료시점에 자동으로 실행
+    }
+
+    @TestConfiguration
+    static class InitTxTestConfig {
+        @Bean
+        Hello hello() {
+            return new Hello();
+        }
+    }
+
+    @Slf4j
+    static class Hello {
+
+        @PostConstruct
+        @Transactional
+        public void initV1() {
+            boolean activeTx = TransactionSynchronizationManager.isActualTransactionActive();
+            log.info("Hello init @PostConstruct tx active = {}", activeTx);
+        }
+
+        @EventListener(ApplicationReadyEvent.class)
+        @Transactional
+        public void initV2() {
+            boolean activeTx = TransactionSynchronizationManager.isActualTransactionActive();
+            log.info("Hello init @EventListener(ApplicationReadyEvent.class) tx active = {}", activeTx);
+        }
+    }
+}
+```
+
+> **위 테스트 코드의 `go()` 의 경우 아무것도 없는 것을 볼 수 있는데, 초기화 단계에서 자동으로 실행되도록 작성을 하였기 때문에 아무것도 작성하지 않아도 `initV1()` 과 `initV2()` 모두 동작하게 된다.**
+
+**결과를 보면 `initV1()` 의 경우 트랜잭션이 동작하지 않고 `initV2()` 의 경우에만 트랜잭션이 동작하는 모습을 확인할 수 있다.**
+
+![transaction13](/static/images/transaction/transaction13.png)
+
+**왜냐하면 초기화 코드가 먼저 호출되고 그 이후에 트랜잭션 AOP가 적용되기 때문이다.**
+
+**따라서 `initV1()` 의 `@PostConstruct` 에 의한 초기화 시점에는 해당 메소드에서 트랜잭션을 획득할 수 없다.**
+
+**하지만 `initV2()` 의 경우에는 `@EventListener(value = ApplicationReadyEvent.class)` 를 사용하여 트랜잭션 AOP를 포함한 스프링 컨테이너가 모두 생성되고 난 이후에 해당 이벤트에 맞춰서 메소드를 호출하기 때문에 트랜잭션이 적용된 것이다.**
