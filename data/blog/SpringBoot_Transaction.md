@@ -1,5 +1,5 @@
 ---
-title: Spring Transaction Intro
+title: Spring Transaction 소개
 date: '2022-12-20'
 tags: ['spring boot', 'Transaction', '인프런', '김영한', '기술']
 draft: false
