@@ -5,3 +5,7 @@ tags: ['Git', '기술']
 draft: false
 summary: Github를 통한 협업을 할 때 참고할 수 있는 내용에 대해서 알아보자.
 ---
+
+## Git Flow
+
+### 코드 생명 주기
