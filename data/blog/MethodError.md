@@ -1,5 +1,5 @@
 ---
-title: [Spring Boot] Request method 'METHOD명' not supported
+title: Request method 'METHOD명' not supported
 date: '2023-01-18'
 tags: ['Spring boot', 'ERROR']
 draft: false
