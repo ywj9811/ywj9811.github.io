@@ -307,3 +307,39 @@ public class PrincipalDetailsService implements UserDetailsService {
 > **추가로 이를 통해서 로그인 하게 되면 이전의 페이지로 자동 Redirect 되게 된다.**
 >
 > **만약 로그인 폼을 요청해서 접근한 것이라면 지정한 디폴트 페이지로 이동 된다.**
+
+### 추가로 각각의 메소드에 권한을 제한할 수 있는데 아래의 추가 설정이 필요하다.
+
+```java
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnable = true, prePostEnabled = true)
+public class SecurityConfig extend WebSecurityConfigurerAdapter {
+    ...
+}
+```
+
+여기서 사용된 **`@EnableGlobalMethodSecurity(securedEnable = true, prePostEnabled = true)`** 를 넣어줘서 **`@Secured`** 와 **`@preAuthorize`** 를 사용할 수 있게 해준다.
+**`@Secured`** 는 하나의 권한을 설정할 수 있고 **`@PreAuthorize`** 는 `hasRole(권한명)` 를 통해서 여러개의 권한을 설정할 수 있게 해준다.
+
+```java
+    @GetMapping("/info")
+    @Secured("ROLE_ADMIN")
+    //이 접근에는 ROLE_ADMIN권한이 필요함을 선언함 -> Config에서 @EnableGlobalMethodSecurity(securedEnabled = true)  이것을 통해서 켜놓았기 때문임
+    @ResponseBody
+    public String info() {
+        return "개인정보";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+    //@Secured과 다르게 여러종류의 권한을 걸기 위해서는 @PreAuthorize를 사용할 수 있는데
+    // 이는 hasRole을 사용하며 Config에서 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnable = true) 설정을 해주어서 가능하게 된다.
+    @GetMapping("/data")
+    @ResponseBody
+    public String data() {
+        return "데이타";
+    }
+    ...
+```
+
+이렇게 기본적인 Spring Security 사용법을 익히면 기본적으로는 사용할 수 있다.
