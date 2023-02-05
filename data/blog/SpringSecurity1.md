@@ -343,3 +343,4 @@ public class SecurityConfig extend WebSecurityConfigurerAdapter {
 ```
 
 이렇게 기본적인 Spring Security 사용법을 익히면 기본적으로는 사용할 수 있다.
+다음에는 OAuth2를 통해 Google, FaceBook, Naver에 로그인 하는 방식을 알아보도록 하자.
