@@ -62,11 +62,11 @@ priorityQueue.offer(3);
 
 **만약 7이 들어온 경우 위와 같이 마지막에 우선 들어가게 된다.**
 
-![Queue](/static/images/Queue/que2.png)
+![Queue](/static/images/Queue/que2.PNG)
 
 **그리고 부모와 비교해서 작다면 교환한다.**
 
-![Queue](/static/images/Queue/que3.png)
+![Queue](/static/images/Queue/que3.PNG)
 
 **반복해서 부모와 비교 후 작지 않다면 교환을 멈춘다.**
 
@@ -87,23 +87,23 @@ priorityQueue.clear()
 
 `clear()` 메소드 사용시 모든 요소가 제거되게 된다.
 
-![Queue](/static/images/Queue/que4.png)
+![Queue](/static/images/Queue/que4.PNG)
 
 **루트와 마지막 노드를 스왑하고 기존의 루트를 뺀다.**
 
-![Queue](/static/images/Queue/que5.png)
+![Queue](/static/images/Queue/que5.PNG)
 
 **삭제 후 자식 노드 두개를 비교**
 
-![Queue](/static/images/Queue/que6.png)
+![Queue](/static/images/Queue/que6.PNG)
 
 **(최소 노드 기준) 최소 힙이기 때문에 더 작은 7을 부모와 비교**
 
-![Queue](/static/images/Queue/que7.png)
+![Queue](/static/images/Queue/que7.PNG)
 
 **7이 더 작기 때문에 스왑**
 
-![Queue](/static/images/Queue/que8.png)
+![Queue](/static/images/Queue/que8.PNG)
 
 **스왑 이후 자식을 기준점으로 다시 비교 -> 기준보다 자식이 더 크니 변경 X**
 
