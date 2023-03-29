@@ -40,56 +40,60 @@ CD는 간단히 말하면 배포 자동화 과정을 말하는 것이다.
 
 ## Spring Boot + Docker + Github Action 자동 배포
 
-### **📌 우선 EC2 인스턴스에서 작업에 필요한 Docker와 Docker-Compose를 설치하도록 한다.**
+### **📌 우선 EC2 인스턴스에서 작업에 필요한 Docker를 설치하도록 한다.**
+
+1. **우선 패키지 인덱스를 업데이트하고 새 HTTPS 리포지토리를 추가하는데 필요한 종속성을 설치한다.**
 
 ```bash
-# docker및 docker-compose 설치에 필요한 유틸 다운로드
 sudo apt update
-
-sudo apt install \
-	apt-transport-https \
-	ca-certificates \
-	curl \
-	software-properties-common
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 ```
 
-- `**software-properties-common` :\*\*
-  PPA를 추가, 제거시 사용되는 유틸이다.
-  즉, 패키지 매니저가 참고하는 repository 정보를 쉽게 추가 제거해준다.
-- `**apt-transport-https` :\*\*
-  https를 통해 데이터 및 패키지에 접근할 수 있도록 한다.
-
-### **📌 Docker 설치**
+2. **curl 명령어를 사용하여 리포지토리의 GPG 키를 가져온다.**
 
 ```bash
-# 도커 설치
-sudo yum install docker -y
-
-# 도커 실행
-sudo service docker start
-
-# 도커 상태 확인
-systemctl status docker.service
-
-# Docker 관련 권한 추가
-sudo chmod 666 /var/run/docker.sock
-docker ps
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-### **📌 Docker-compose 설치**
+3. **Docker APT 리포지토리를 시스템에 추가한다.**
 
 ```bash
-# 도커 컴포즈 설치
-sudo curl \
--L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
--o /usr/local/bin/docker-compose
-
-# 권한 추가
-sudo chmod +x /usr/local/bin/docker-compose
-
-# 버전 확인
-docker-compose --version
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
+
+**이제 도커 저장소가 실행되었으므로 저장소에 있는 모든 도커 버전을 설치할 수 있다**
+
+4. **최신 버전 도커 설치**
+
+```bash
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+```
+
+**⚠️ 본인은 여기서 오류가 발생하였는데, 해당 오류 경로를 찾아가 vi편집기로 확인하자**
+
+5. **설치 확인**
+
+```bash
+sudo systemctl status docker
+
+# ● docker.service - Docker Application Container Engine
+#      Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+#      Active: active (running) since Thu 2020-05-21 14:47:34 UTC; 42s ago
+# ...
+```
+
+결과가 주석과 같이 나오면 성공한 것이다.
+
+6. **루트가 아닌 사용자로 도커 실행 권한 부여**
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+이는 현재 사용중인 사용자에게 권한을 부여하는 것으로 `$USER` 가 현 사용자를 의미한다.
+
+이때 주의할 점은 한번 껏다가 다시 실행하도록 하자 **(권한 부여가 그제서야 됨)**
 
 ---
 
@@ -358,4 +362,4 @@ jobs:
 
 **도커 허브에서 푸쉬된 내용을 pull, 기존에 실행하던 내용 stop 후 삭제하고 새로 받은 것을 실행한다.**
 
-> **참고** : [https://minsu20.tistory.com/23](https://minsu20.tistory.com/23) , [https://a-half-human-half-developer.tistory.com/12](https://a-half-human-half-developer.tistory.com/12)
+> **참고** : [https://minsu20.tistory.com/23](https://minsu20.tistory.com/23) , [https://jjeongil.tistory.com/1968](https://jjeongil.tistory.com/1968)
