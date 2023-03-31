@@ -40,7 +40,20 @@ CD는 간단히 말하면 배포 자동화 과정을 말하는 것이다.
 
 ## Spring Boot + Docker + Github Action 자동 배포
 
-### **📌 우선 EC2 인스턴스에서 작업에 필요한 Docker를 설치하도록 한다.**
+### **📌 DockFile 작성**
+
+우선 **DockFile**을 작성하여 Docker 이미지를 빌드하기 위해 지시문을 넣어준다.
+
+```jsx
+FROM openjdk:11-jdk
+ARG JAR_FILE=./build/libs/dashboardback-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
+
+### **📌 EC2 인스턴스에서 작업에 필요한 Docker를 설치하도록 한다.**
+
+### - Ubuntu 버전 -
 
 1. **우선 패키지 인덱스를 업데이트하고 새 HTTPS 리포지토리를 추가하는데 필요한 종속성을 설치한다.**
 
@@ -94,6 +107,26 @@ sudo usermod -aG docker $USER
 이는 현재 사용중인 사용자에게 권한을 부여하는 것으로 `$USER` 가 현 사용자를 의미한다.
 
 이때 주의할 점은 한번 껏다가 다시 실행하도록 하자 **(권한 부여가 그제서야 됨)**
+
+---
+
+### - Linux 버전 -
+
+### **📌 Docker 설치**
+
+```bash
+# yum으로 Docker 설치
+sudo yum install docker -y
+
+# Docker 실행
+sudo service docker start
+
+# Docker 그룹에 sudo 추가 (인스턴스 접속 후 도커 바로 제어할 수 있도록)
+sudo usermod -aG docker ec2-user
+
+# 인스턴스 재접속(putty 껐다 킴) 후 Docker 명령어 실행해보기
+docker run hello-world
+```
 
 ---
 
