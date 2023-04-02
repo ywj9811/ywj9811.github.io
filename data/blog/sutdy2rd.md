@@ -1,6 +1,6 @@
 ---
 title: BackEnd 스터디 2주차
-date: '2023-03-24'
+date: '2023-04-01'
 tags: ['기술', '스터디']
 draft: false
 summary: 2주차 Spring MVC (Bean 객체와 싱글톤 디자인 패턴)에 대하여
