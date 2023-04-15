@@ -67,3 +67,5 @@ private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProp
 3. **세번째 해결 방안**은 Boot의 버전을 2.5.xx로 낮추는 것이다.
 
 물론 나는 이중에서 첫번째 해결 방안을 통해 해결했다.
+
+> 참고 : https://stackoverflow.com/questions/70036953/spring-boot-2-6-0-spring-fox-3-failed-to-start-bean-documentationpluginsboo
