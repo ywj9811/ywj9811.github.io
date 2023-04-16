@@ -79,7 +79,7 @@ public class ApplicationException extends RuntimeException {
 }
 ```
 
-우선 이렇게 **`RuntimeException`**을 처리하는 **`ApplicationException`**이라는 클래스를 하나 만들었다.
+우선 이렇게 `RuntimeException`을 처리하는 `ApplicationException`이라는 클래스를 하나 만들었다.
 
 → ❓여기서 **super(message)를 한 이유는? RuntimeException에 이미 message를 포함**하는 생성자가 있다.
 
@@ -105,7 +105,7 @@ public class GlobalExceptionHandler {
 }
 ```
 
-이렇게 만들게 되면, 해당하는 **RestController**에서 예외가 발생하면 **GlobalExceptionHandler**가 모두 잡고, 여기서 **`@ExceptionHandler`**가 해당하는 예외를 잡아서 처리하는 것이다.
+이렇게 만들게 되면, 해당하는 **RestController**에서 예외가 발생하면 **GlobalExceptionHandler**가 모두 잡고, 여기서 `@ExceptionHandler`가 해당하는 예외를 잡아서 처리하는 것이다.
 
 만약 해당하는 예외가 발생하게 되면, 설정해둔 포멧에 맞게 만들어져 Json타입으로 반환되게 되는 것이다.
 
