@@ -156,7 +156,7 @@ JIT 컴파일을 사용할 때 부하가 적으면 충분히 많은 요청이 �
     
     이는 부하가 증가하면서 예기치 않게 저하(지연)가 발생하는 그래프이다.
     
-    ![Alt text](https://user-images.githubusercontent.com/97458548/250280036-aac5f133-31fe-45ac-9d16-7d5053d63b08.png)
+    ![Alt text](/static/images/opt/opt1.png)
     
 2. 준-선형적(near-linear) 확장
     
@@ -168,7 +168,7 @@ JIT 컴파일을 사용할 때 부하가 적으면 충분히 많은 요청이 �
     
     진 암달이 발표한 법칙으로 암달에 따르면 근본적으로 확장성에는 제약이 따른다는 것이다.
     
-    ![Untitled](https://user-images.githubusercontent.com/97458548/250280097-a2590e77-97d9-4d11-ad1c-f0882283ac82.png)
+    ![Untitled](/static/images/opt/opt2.png)
     
     이는 확장성에는 근본적으로 제약이 따른다는 것이다.
     

@@ -15,7 +15,7 @@ JVM은 스택 기반의 해석 머신으로 레지스터는 없지만 일부 결
 
 **자바 클래스로딩 매커니즘**을 살펴보면 자바 프로세스가 새로 초기화되면 줄지어 연결된 클래스로더가 차례차례 작동한다.
 
-![image](https://github.com/JSON-loading-and-unloading/Optimizing-Java/assets/97458548/a61f6384-bfd4-4961-9d8f-d35065a29e39)
+![image](/static/images/opt/opt3.png)
 
 위는 예시 사진으로, 위와 같이 우선 **부트스트랩 클래스로더가 필수 클래스를 로드**한다.
 
@@ -29,7 +29,7 @@ JVM은 스택 기반의 해석 머신으로 레지스터는 없지만 일부 결
 
 만약 클래스로더가 해당 클래스를 발견하지 못하면 부모 클래스로더에게 룩업(찾아보기)를 넘긴다.
 
-![image](https://github.com/JSON-loading-and-unloading/Optimizing-Java/assets/97458548/4c484af1-981c-4183-a54e-24624bf904e4)
+![image](/static/images/opt/opt4.png)
 
 그렇게 쭉 부모로 올라가다가 부트스트랩에서도 룩업을 하지 못하게 되면 `ClassNotFoundException` 예외가 발생하게 되는 것이다.
 
@@ -37,7 +37,7 @@ JVM은 스택 기반의 해석 머신으로 레지스터는 없지만 일부 결
 
 자바 소스 코드는 실행될때 까지 많은 변환 과정을 거친다.
 
-![image](https://github.com/JSON-loading-and-unloading/Optimizing-Java/assets/97458548/57a87b61-4a53-4dc7-a297-6239d208f602)
+![image](/static/images/opt/opt5.png)
 
 위의 과정에서 보이 듯 첫 단계는 자바 컴파일러 javac를 이용해 컴파일 하는 것으로 자바 소스 코드를 **바이트코드로** 가득 찬 .class 파일로 바꾸는 것이다.
 
@@ -74,7 +74,7 @@ https://blog.lse.epita.fr//2014/04/28/0xcafebabe-java-class-file-format-an-overv
 
 성능 관점에서 자바에 가장 큰 변화를 가져온 것이 핫스팟 가상 머신이다.
 
-![image](https://github.com/JSON-loading-and-unloading/Optimizing-Java/assets/97458548/784fd59c-0a7b-40f0-8118-9f3c83521c3d)
+![image](/static/images/opt/opt6.png)
 
 언어는 zero cost 추상화 사상에 근거하여 ‘기계에 가까운 언어’와 ‘개발자 생산성 언어’ 사이에서 갈등을 겪게 된다.
 
