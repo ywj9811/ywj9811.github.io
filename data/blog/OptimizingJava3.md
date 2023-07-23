@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap3
 date: '2023-07-20'
-tags: ['JAVA']
+tags: ['JAVA', '스터디']
 draft: false
 summary: Optimizing Java 3장 하드웨어와 운영체제
 ---

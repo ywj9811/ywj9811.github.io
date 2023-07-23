@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap1 
 date: '2023-07-6'
-tags: ['JAVA']
+tags: ['JAVA', '스터디']
 draft: false
 summary: Optimizing Java 1장 성능과 최적화
 ---

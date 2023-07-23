@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap2
 date: '2023-07-13'
-tags: ['JAVA']
+tags: ['JAVA', '스터디']
 draft: false
 summary: Optimizing Java 2장 JVM 이야기
 ---
