@@ -1,7 +1,7 @@
 ---
 title: Modern Java in Action chap1
 date: '2023-07-30'
-tags: ['JAVA']
+tags: ['JAVA', '기술서적']
 draft: false
 summary: Modern Java in Action 1장 자바 8,9,10,11 무슨 일이 일어나고 있는가
 ---
