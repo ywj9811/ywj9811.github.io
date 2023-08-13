@@ -78,7 +78,7 @@ List<Apple> greenApples =
 
 이런식으로 말이다.
 
-이 경우에는 함수형 인터페이스 `Predicate<T>` 를 기대하는 `filter()` 메소드의 두번째 인수로 람다 표현식을 전달한 것이다.
+이 경우에는 함수형 인터페이스 `Predicate` 를 기대하는 `filter()` 메소드의 두번째 인수로 람다 표현식을 전달한 것이다.
 
 그렇다면 함수형 인터페이스가 무엇인지 알아봐야 한다.
 
@@ -86,7 +86,7 @@ List<Apple> greenApples =
 
 **함수형 메소드는 정확히 하나의 추상 메소드를 지정하는 인터페이스를 말한다.**
 
-따라서 `Predicate<T>` 는 함수형 인터페이스다. 왜냐? `Predicate<T>` 는 오직 하나의 추상 메소드만 지정하기 때문이다.
+따라서 `Predicate` 는 함수형 인터페이스다. 왜냐? `Predicate` 는 오직 하나의 추상 메소드만 지정하기 때문이다.
 
 ```java
 public interface Predicate<T> {
