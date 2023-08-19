@@ -24,11 +24,13 @@ List<Apple> haevyThan150g =
 
 이런 식이 있을 때, 아래와 같은 순서로 확인할 수 있다.
 
+```
 1. filter 메소드의 선언을 확인
 2. filter 메소드는 두번째 파라미터로 Predicate<Apple> (대상 형식)을 기대한다.
 3. Predicate<Apple> 은 test라는 한개의 추상 메소드를 정의한다.
 4. test 메소드는 boolean을 반환하는 함수 디스크럽터를 묘사한다.
 5. filter 메소드로 전달된 인수는 위와 같은 요구사항을 만족해야 한다.
+```
 
 이렇게 유효한 형식임을 알 수 있다.
 
