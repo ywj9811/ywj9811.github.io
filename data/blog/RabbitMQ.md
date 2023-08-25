@@ -16,7 +16,7 @@ AMQP를 구현한 오픈소스 메시지 브로커 시스템이다.
 이는 클라이언트가 메시지 미들웨어 브로커와 통신할 수 있게 해주는 메시징 프로토콜이다.
 
 ```
-													Broker
+						Broker
 Producers -> [Exchange - Binding -> Queue] -> Consumers
 ```
 
