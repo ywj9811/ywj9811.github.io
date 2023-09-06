@@ -1,7 +1,7 @@
 ---
 title: SQL 문법 정리
 date: '2023-08-30'
-tags: ['JAVA', '스터디', '기술서적']
+tags: ['SQL']
 draft: false
 summary: MySql관련한 SQL문법을 정리하도록 한다
 ---
