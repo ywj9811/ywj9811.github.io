@@ -1,6 +1,6 @@
 ---
 title: Optimizing Java Chap9
-date: '2023-08-26'
+date: '2023-09-03'
 tags: ['JAVA', '스터디', '기술서적']
 draft: false
 summary: Optimizing Java 챕터9 JVM의 코드 실행
