@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap6
 date: '2023-08-11'
-tags: ['JAVA', '스터디', '기술서적']
+tags: ['JAVA', '스터디', '기술서적', Optimizing_Java]
 draft: false
 summary: Optimizing Java 6장 가비지 수집 기초
 ---

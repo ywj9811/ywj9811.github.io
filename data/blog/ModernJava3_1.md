@@ -1,7 +1,7 @@
 ---
 title: Modern Java in Action chap3 (1)
 date: '2023-08-13'
-tags: ['JAVA', '기술서적']
+tags: ['JAVA', '기술서적', Modern_Java_In_Action]
 draft: false
 summary: Modern Java in Action 3장 람다 표현식 - 1
 ---

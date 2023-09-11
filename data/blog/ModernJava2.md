@@ -1,7 +1,7 @@
 ---
 title: Modern Java in Action chap2
 date: '2023-08-01'
-tags: ['JAVA', '기술서적']
+tags: ['JAVA', '기술서적', Modern_Java_In_Action]
 draft: false
 summary: Modern Java in Action 2장 동작 파라미터화 코드 전달하기
 ---

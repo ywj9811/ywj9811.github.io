@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap8
 date: '2023-08-26'
-tags: ['JAVA', '스터디', '기술서적']
+tags: ['JAVA', '스터디', '기술서적', Optimizing_Java]
 draft: false
 summary: Optimizing Java 8장 GC 로깅, 모니터링, 튜닝, 툴
 ---

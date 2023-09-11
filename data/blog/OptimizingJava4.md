@@ -1,7 +1,7 @@
 ---
 title: Optimizing Java Chap4
 date: '2023-07-27'
-tags: ['JAVA', '스터디', '기술서적']
+tags: ['JAVA', '스터디', '기술서적', Optimizing_Java]
 draft: false
 summary: Optimizing Java 4장 성능 테스트 패턴 및 안티패턴
 ---
