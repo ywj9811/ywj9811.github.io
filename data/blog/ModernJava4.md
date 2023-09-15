@@ -335,14 +335,14 @@ menu.stream().forEach(System.out::println);
 
 | 연산 | 형식 | 반환 형식 | 연산의 인수 | 함수 디스크립터 |
 | --- | --- | --- | --- | --- |
-| filter | 중간 연산 | Stream<T> | Predicate<T> | T → boolean |
-| map | 중간 연산 | Stream<R> | Function<T, R> | T → R |
-| limit | 중간 연산 | Stream<T> |  |  |
-| sorted | 중간 연산 | Stream<T> | Comparator<T> | (T, T) → int |
-| distinct | 중간 연산 | Stream<T> |  |  |
+| filter | 중간 연산 | `Stream<T>` | `Predicate<T>` | `T → boolean` |
+| map | 중간 연산 | `Stream<R>` | `Function<T, R>` | `T → R` |
+| limit | 중간 연산 | `Stream<T>` |  |  |
+| sorted | 중간 연산 | `Stream<T>` | `Comparator<T>` | `(T, T) → int` |
+| distinct | 중간 연산 | `Stream<T>` |  |  |
 
 | 연산 | 형식 | 반환 형식 | 목적 |
 | --- | --- | --- | --- |
-| forEach | 최종 연산 | void | 스트림의 각 요소를 소비하며 람다를 적용 |
-| count | 최종 연산 | long (generic) | 스트림의 요소 개수 반환 |
+| forEach | 최종 연산 | `void` | 스트림의 각 요소를 소비하며 람다를 적용 |
+| count | 최종 연산 | `long (generic)` | 스트림의 요소 개수 반환 |
 | collect | 최종 연산 |  | 스트림을 reduce하여 리스트, 맵, 정수 형식의 컬렉션을 만든다. |
