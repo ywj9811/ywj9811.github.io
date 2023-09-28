@@ -1,7 +1,7 @@
 ---
 title: Mysql SQL문법
 date: '2023-09-03'
-tags: ['SQL']
+tags: ['SQL', 'MySQL']
 draft: false
 summary: MySql의 SQL문법을 정리하고 넘어가도록 하자
 ---
