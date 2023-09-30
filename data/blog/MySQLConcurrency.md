@@ -1,7 +1,7 @@
 ---
 title: MySQL Lock과 동시성 및 정합성
 date: '2023-09-27'
-tags: ['MySQL']
+tags: ['MySQL', '기술']
 draft: false
 summary: Lock과 동시성 및 정합성 제어에 대해
 ---
