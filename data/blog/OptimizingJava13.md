@@ -1,6 +1,6 @@
 ---
 title: Optimizing Java Chap13
-date: '2023-09-27'
+date: '2023-10-04'
 tags: ['JAVA', '스터디', '기술서적', Optimizing_Java]
 draft: false
 summary: Optimizing Java 챕터13 프로파일링
