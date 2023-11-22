@@ -46,7 +46,7 @@ summary: 오브젝트 Java 챕터2 객체지향 프로그래밍
 
 요구사항과 프로그램을 객체라는 동일한 관점에서 바라볼 수 있기 때문에 도메인을 구성하는 개념들이 프로그램의 객체와 클래스로 매끄럽게 연결될 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ed58f7c6-46bb-48c4-829a-b24be3b7faa2/f5119c93-fd20-455e-94b3-6d38e45ec9be/Untitled.png)
+![Untitled](/static/images/objectsChap2.png)
 
 이런식으로 연결을 할 수 있는데, 이는 영화는 여러번 상영될 수 있고, 상영은 여러 번 예매될 수 있다는 것을 알 수 있다. 영화에는 할인 정책을 할당하거나 하지 않을 수 있고, 할인 정책은 하나 이상의 할인 조건이 반드시 존재한다는 것을 알 수 있다.
 
