@@ -27,13 +27,13 @@ summary: 서버의 볼륨 사용량을 잡아먹는 Docker의 사용하지 않�
 
 우선 도커 용량을 확인해보자
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5eda31ee-1593-4ecf-bfad-bae333b90117/47b70b95-5493-4db9-8bf6-d8cfbdb8082a/Untitled.png)
+![Untitled](/static/images/dockerclear/dockerclear1.png)
 
 사실 이중에 대부분은 사용하지 않는 것이다.^^ 정리를 해주지 않았을 뿐
 
 이제 `docker system prune` 를 사용해서 사용하지 않는 것들을 정리해주자.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5eda31ee-1593-4ecf-bfad-bae333b90117/4f28220c-2cd4-4d84-8ed0-e4cc5c7768b6/Untitled.png)
+![Untitled](/static/images/dockerclear/dockerclear2.png)
 
 많이도 정리됐다.
 
@@ -74,13 +74,13 @@ summary: 서버의 볼륨 사용량을 잡아먹는 Docker의 사용하지 않�
 
 이렇게 작성해주었는데, 이러면 매일 정각에 해당 명령어를 동작시키는 것이다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5eda31ee-1593-4ecf-bfad-bae333b90117/762135a0-a192-41da-84d8-6d302bcc5087/Untitled.png)
+![Untitled](/static/images/dockerclear/dockerclear3.png)
 
 이후에 `ps -ef|grep crond` 명령어를 통해 현재 작동중인 cron데몬프로그램이 무엇이 있는지 확인했을 때 제대로 나온다면 동작중인 것이다.
 
 만약 나오지 않는다면 `status crond.service` 를 통해 active 상태인지 확인해보자.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5eda31ee-1593-4ecf-bfad-bae333b90117/b3d8bfee-7907-46e8-afd5-79d7c0f8affb/Untitled.png)
+![Untitled](/static/images/dockerclear/dockerclear4.png)
 
 이렇게 active 상태가 나오지 않는다면
 
