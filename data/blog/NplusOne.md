@@ -163,11 +163,11 @@ public List<Mentoring> findAllBySeniorAndStatus(Senior inputSenior, Status statu
 
 ---
 
-![Untitled](/static/images/np1.png)
+![Untitled](/static/images/np2.png)
 
 N+1이 발생할 때의 성능
 
-![Untitled](/static/images/np2.png)
+![Untitled](/static/images/np1.png)
 
 N+1을 해결한 이후 성능
 
