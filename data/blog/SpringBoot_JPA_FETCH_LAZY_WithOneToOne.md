@@ -1,9 +1,9 @@
 ---
-title: @OneToOne 양방향은 FetchType.LAZY가 동작하지 않는다
+title: OneToOne 양방향은 FetchType.LAZY가 동작하지 않는다
 date: '2024-01-07'
 tags: ['spring boot', 'JPA', '기술']
 draft: false
-summary: @OneToOne에서 양방향 관계를 맺는 경우 FetchType.LAZY가 동작하지 않을 수 있다.
+summary: OneToOne에서 양방향 관계를 맺는 경우 FetchType.LAZY가 동작하지 않을 수 있다.
 ---
 ### 제목 그대로 @OneToOne의 양방향은 FetchType.LAZY가 되지 않을 수 있다.
 
