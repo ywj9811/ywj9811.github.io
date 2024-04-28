@@ -1,7 +1,7 @@
 ---
 title: 스프링 배치 실행
 date: '2024-04-22'
-tags: ['spring boot', 'JPA', 'ERROR']
+tags: ['spring batch']
 draft: false
 summary: 스프링 배치 실행하기
 ---
