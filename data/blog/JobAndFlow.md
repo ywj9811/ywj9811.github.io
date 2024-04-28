@@ -314,3 +314,149 @@ Step 내에 Flow를 할당하여 실행시키는 도메인 객체이며, flowSte
 ```
 
 이와 같이 기존과 크게 다르지 않기에 어렵지 않게 작성할 수 있다.
+
+## 이어서 @JobScope와 @StepScope를 살펴보자.
+
+## Scope
+
+Scope는 알다시피 스프링 컨테이너에서 빈이 관리되는 범위를 의미하는 것인데, 기본적으로 singleton으로 생성된다.
+
+## SpringBatch Scope
+
+여기에는 @JobScope와 @StepScope 가 있다.
+
+Job과 Step의 빈 생성과 실행에 관여하는 Scope로 프록시 모드를 기본값으로 한다.
+
+**해당 Scope가 선언되면 빈 생성이 어플리케이션 구동시점(초기화 시점)이 아닌 해당하는 실제 빈의 실행시점에 이루어진다.**
+
+프록시 모드로 빈이 선언되기 때문에 어플리케이션 구동시점에는 빈의 **프록시 객체가 생성**되어 실행 시점에 실제 빈을 호출하게 되는 것으로  Lazy Binding이 가능하다.
+
+이는 병렬 처리에서 각 스레드 마다 생성된 스코프 빈이 할당되기 때문에 스레드에 안전하게 실행이 가능하다.
+
+또한 @Value 를 주입해서 빈의 실행 시점에 값을 참조하여 사용할 수 있다.
+
+- `@Value(”#{jobParameters[파라미터명]}”)`, `@Value(”#{jobExecutionContext[파라미터명]}”)` , `@Value(”#{stepExecutionContext[파라미터명]}”)` 이렇게 사용할 수 있다.
+- 이렇게 @Value를 사용하기 위해서는 빈 선언문에 @JobScope @StepScope 를 반드시 선언해야 한다.
+- 물론, @JobScope 혹은 @StepSope 를 사용할 때 무조건 @Value를 사용해야 하는 것은 아니다.
+
+### @JobScope
+
+Step 선언문에 정의하며, `@Value(”#{jobParameters[파라미터명]}”)` 와 `@Value(”#{jobExecutionContext[파라미터명]}”)` 만 사용할 수 있다.
+
+### @StepScope
+
+Tasklet이나 ItemReader, ItemWriter, ItemProcessor 선언문에 정의하며, `@Value(”#{jobParameters[파라미터명]}”)`, `@Value(”#{jobExecutionContext[파라미터명]}”)` , `@Value(”#{stepExecutionContext[파라미터명]}”)` 모두 사용할 수 있다.
+
+```java
+@Configuration
+@RequiredArgsConstructor
+public class JobConfig {
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager transactionManager;
+
+    @Bean
+    public Job batchJob() {
+        return new JobBuilder("customJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .listener(new CustomJobListener())
+                .start(beanStep1(null)) //우선은 null을 넣어준다.
+                .next(beanStep2())
+                .build();
+    }		
+		@Bean
+    @JobScope
+    public Step beanStep1(@Value("#{jobParameters['message']}") String message) {
+        System.out.println("message : " + message);
+        return new StepBuilder("beanStep", jobRepository)
+                .tasklet(tasklet1(null), transactionManager)
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step beanStep2() {
+        return new StepBuilder("beanStep", jobRepository)
+                .tasklet(tasklet2(null), transactionManager)
+                .listener(new CustomStepListener())
+                .build();
+    }
+
+    @Bean
+    @StepScope
+    public Tasklet tasklet1(@Value("#{jobExecutionContext['name']}") String name) {
+        return ((contribution, chunkContext) -> {
+            System.out.println("name : " + name);
+            return RepeatStatus.FINISHED;
+        });
+    }
+
+    @Bean
+    @StepScope
+    public Tasklet tasklet2(@Value("#{stepExecutionContext['name2']}") String name2) {
+        return ((contribution, chunkContext) -> {
+            System.out.println("name2 : " + name2);
+            return RepeatStatus.FINISHED;
+        });
+    }
+}
+
+public class CustomJobListener implements JobExecutionListener {
+    @Override
+    public void beforeJob(JobExecution jobExecution) {
+        jobExecution.getExecutionContext().put("name", "name1!!!");
+    }
+    @Override
+    public void afterJob(JobExecution jobExecution) {
+
+    }
+
+}
+
+public class CustomStepListener implements StepExecutionListener {
+
+    @Override
+    public void beforeStep(StepExecution stepExecution) {
+        stepExecution.getExecutionContext().put("name2", "name2!!!");
+    }
+
+    @Override
+    public ExitStatus afterStep(StepExecution stepExecution) {
+        return null;
+    }
+}
+```
+
+이렇게 사용될 수 있으며
+
+```java
+@Configuration
+@RequiredArgsConstructor
+public class JobConfig {
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager transactionManager;
+
+    @Bean
+    public Job batchJob() {
+        return new JobBuilder("customJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .start(beanStep())
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step beanStep() {
+        return new StepBuilder("beanStep", jobRepository)
+                .tasklet(((contribution, chunkContext) -> RepeatStatus.FINISHED), transactionManager)
+                .build();
+    }
+} 
+```
+
+이렇게 또한 사용될 수 있다.
+
+### JobContext 와 StepContext
+
+스프링 컨테이너에서 생성된 빈을 저장하는 컨텍스트 역할을 하는데, Job의 실행 시점에서 프록시 객체가 실제 빈을 참조할 때 사용된다.
+
+JobScope와 StepScope가 이 두가지를 가지고 있다.
