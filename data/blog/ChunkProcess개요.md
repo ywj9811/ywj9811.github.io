@@ -1,6 +1,6 @@
 ---
 title: ChunkProcess
-date: '2024-04-24'
+date: '2024-04-25'
 tags: ['spring batch']
 draft: false
 summary: ChunkProcess 개요
