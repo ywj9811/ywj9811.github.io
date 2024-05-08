@@ -84,7 +84,7 @@ public class BatchTest {
 
 - JobRepository의 readOnly 버전으로 실행중인 Job의 실행 정보인 JobExecution 또는 Step의 실행 정보인 StepExecution을 조회할 수 있다.
 
-![Untitled](static/images/batch/batch77.png)
+![Untitled](/static/images/batch/batch77.png)
 
 ### JobRegistry
 
@@ -93,11 +93,11 @@ public class BatchTest {
 - Job등록
     - JobRegistryBeanPostProcessor - BeanPostProcessor 단계에서 bean초기화 시 자동으로 JobRegistry에 Job을 등록시켜준다.
 
-![Untitled](static/images/batch/batch78.png)
+![Untitled](/static/images/batch/batch78.png)
 
 ### JobOperation
 
 - JobExplorer, JobRepository, JobRegistry, JobLauncher를 포함하여 배치의 중단, 재시작, job 요약 등의 모니터링이 가능하다.
 - 기본 구현체로 SimpleJobOperator 를 제공한다.
 
-![Untitled](static/images/batch/batch79.png)
+![Untitled](/static/images/batch/batch79.png)
