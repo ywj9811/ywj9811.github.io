@@ -1,7 +1,7 @@
 ---
 title: 레디스의 분산락을 활용한 동시성 제어
 date: '2024-05-19'
-tags: ['spring Boot, 기술, Redis']
+tags: ['spring Boot', '기술', 'Redis']
 draft: false
 summary: Redis를 활용한 대학원 김선배의 멘토링 동시성 제어
 ---
