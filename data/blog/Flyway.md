@@ -1,6 +1,6 @@
 ---
 title: Flyway
-date: '2024-08-19'
+date: '2024-09-19'
 tags: ['spring boot', '기술']
 draft: false
 summary: Flyway 개념과 도입
