@@ -444,3 +444,296 @@ spec:
 ### 정리
 
 ![image.png](/static/images/kube/kube13.png)
+
+## Service
+
+![image.png](/static/images/kube/kube14.png)
+
+Service는 애플리케이션을 다른 애플리케이션 또는 사용자와 연결하는 데 도움이 된다.
+
+예를 들어, 프론트엔드 그룹, 백엔드 그룹, 그리고 외부 데이터 소스 그룹이 있을 때 이러한 Pod 그룹 간의 연결을 가능하게 하는 것이 Service이다.
+
+따라서 MicroService 간의 느슨한 결합을 가능하게 한다.
+
+### Networking
+
+![image.png](/static/images/kube/kube15.png)
+
+Pod은 각각의 IP를 가지지만, Pod은 언제든 삭제되고 다시 생성될 수 있기에 IP 또한 바뀔 수 있다.
+
+그렇기에 다른 애플리케이션이 직접 Pod IP 에 의존하는 것은 불안정하다.
+
+Service는 이러한 문제를 해결해줄 수 있는데, Service는 Pod 앞에 고정된 접근 지점을 만들어주고, Pod이 재생성되어도 Service를 통해 계속 접근할 수 있게 해준다.
+
+**이를 통해서 위의 MicroService 간의 느슨한 결합이 가능해지는 것이기도 하다.(IP를 직접 몰라도 가능)**
+
+그리고, 쿠버네티스 안에는 여러 네트워크 범위가 있다.
+
+```yaml
+내 노트북 IP: 192.168.1.1
+Kubernetes Node IP: 192.168.1.2
+Pod IP: 10.244.0.2
+```
+
+이때 Pod IP는 클러스터 내부 네트워크 주소이기 때문에, 외부 노트북에서는 해당 IP로 바로 접근이 불가능하다.
+
+이때 위에서 설명한 것과 마찬가지로 Service가 중간에 연결해주는 역할을 수행하게 된다.
+
+```powershell
+Pod IP: 10.244.0.2
+Container Port: 80
+
+# 쿠버네티스 노드
+Node IP : 192.168.1.2
+
+# 외부 사용자의 접근
+192.168.1.2:30080
+        ↓
+      Service
+        ↓
+10.244.0.2:80
+# 이러한 방식이 뒤에서 나오는 NodePort Service 방식
+```
+
+### Service 종류
+
+![image.png](/static/images/kube/kube16.png)
+
+### 1. NodePort
+
+Node의 특정 포트를 열고, 그 포트로 들어온 요청을 Pod으로 전달
+
+```powershell
+외부 사용자
+    ↓
+NodeIP:NodePort
+    ↓
+Service
+    ↓
+Pod
+
+# ex) 192.168.1.2:30080 → Service → Pod:80
+```
+
+이처럼 외부에서 간단히 애플리케이션 접근할 때 사용한다.
+
+### 2. ClusterIP
+
+클러스터 내부에서만 접근 가능한 Service이다.
+
+이번에는 내부 프론트엔드 Pod에서 백엔드 Pod으로 접근할 때 사용할 수 있다.
+
+이 경우 Service는 클러스터 내부에 가상 IP를 생성하여 통신을 가능하게 해준다.
+
+이는 외부 사용자가 아닌, Pod 끼리 내부 통신할 때 사용한다.
+
+```powershell
+Frontend Pod
+    ↓
+backend-service
+    ↓
+Backend Pod
+```
+
+### 3. LoadBalancer
+
+클라우드 환경에서 외부 Load Balancer를 만들어주는 Service이다.
+
+```powershell
+외부 사용자
+    ↓
+Cloud Load Balancer
+    ↓
+Service
+    ↓
+Pod
+```
+
+AWS, GCP, Azure 과 같은 환경에서 주로 사용한다.
+
+### NodePort 자세히 알아보기
+
+![image.png](/static/images/kube/kube17.png)
+
+NodePort에는 중요한 포트가 3개 있다.
+
+1. nodePort
+    
+    외부에서 Node IP와 함께 접근하는 포트 **nodePort**
+    
+2. port
+    
+    Service 자체가 사용하는 포트 **port**
+    
+3. targetPort
+    
+    실제 Pod/컨테이너가 열고 있는 포트 **targetPort**
+    
+
+```yaml
+외부 사용자
+    ↓
+NodeIP:nodePort
+    ↓
+Service:port
+    ↓
+Pod:targetPort
+```
+
+예를 들어
+
+```powershell
+Node IP: 192.168.1.2
+nodePort: 30008
+Service port: 80
+Pod targetPort: 80
+```
+
+이렇게 정의되어 있다면, 외부 사용자는 아래와 같이 접근할 수 있다.
+
+```powershell
+http://192.168.1.2:30008
+
+192.168.1.2:30008
+    ↓
+Service:80
+    ↓
+Pod:80
+```
+
+이때, nodePort에는 아무 숫자나 사용할 수 없고, 정해진 범위의 숫자를 사용해야 한다 → **30000 ~ 32767**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+	name: myapp-service
+	# labels: 
+	
+# spec이 중요한 부분이다.
+spec:
+	type: NodePort
+	ports:
+		- targetPort: 80
+			port: 80
+			nodePort: 30008 #30000~32767
+	selector: 
+		app: myapp
+		type: front-end
+```
+
+spec에서 작성하는 port는 사용할 Port들을 정의하는 부분이고, selector를 통해서 어떤 Pod을 이용할 것인지 결정하는 것이다.
+
+```powershell
+kubectl apply -f service-definition.yml
+# 이를 통해서 마찬가지로 service 오브젝트를 생성
+
+kubectl get services # 혹은 svc
+# 이를 통해서 생성된 service 목록을 확인
+```
+
+**그렇다면, 만약 Pod이 여러개 있으면 어떻게 할까.**
+
+Pod이 하나만 있어도 Service를 통해 동작하는 것이 가능하지만, 보통은 Pod을 여러개 두고 사용할 것이다.
+
+Pod이 여러개 있으면 Service는 Selector와 일치하는 모든 Pod을 찾아서 연결한다.
+
+```powershell
+Service
+  ↓
+Pod 1
+Pod 2
+Pod 3
+```
+
+그러면, Service는 모든 Pod을 endpoint로 잡고, 외부 요청은 이 Pod중 하나로 전달된다.
+
+즉, Service는 여러 Pod 앞에서 간단한 로드밸런서 처럼 동작하게 된다.
+
+**그렇다면, 만약 Pod이 여러 Node에 분산되어 있으면 어떻게 할까.**
+
+마찬가지로, Service 생성 방식은 동일하다.
+
+```powershell
+Node 1
+  └─ Pod 1
+
+Node 2
+  └─ Pod 2
+
+Node 3
+  └─ Pod 3
+```
+
+NodePort Service를 만들면 쿠버네티스는 모든 Node에 동일한 nodePort를 열게된다.
+
+```powershell
+Node 1 IP:30008
+Node 2 IP:30008
+Node 3 IP:30008
+```
+
+이런식으로 Node의 IP에 해당 port를 붙여서 접근하면 Service가 적절한 Pod으로 요청을 전달한다.
+
+### ClusterIP 자세히 알아보기
+
+![image.png](/static/images/kube/kube18.png)
+
+웹 애플리케이션은 보통 여러 계층으로 나뉘어있다.
+
+```powershell
+Frontend Pod들
+Backend Pod들
+Redis Pod들
+MySQL Pod들
+```
+
+그리고, 이들은 서로 통신해야 한다.
+
+하지만, Pod은 각각 IP를 가지지만, Pod IP는 고정되지 않는다.
+
+이때 마찬가지로 Service가 그룹의 단일 진입점이 되어 동작하게 된다.
+
+```powershell
+Frontend Pod
+     ↓
+backend-service
+     ↓
+Backend Pod 1
+Backend Pod 2
+Backend Pod 3
+```
+
+**이때 ClusterIP를 사용하는 것은, 클러스터 내부에서만 접근이 가능한 Service 타입이기 때문이다.**
+
+Service를 만들면 쿠버네티스가 Service에게 내부 IP를 하나 부여하게 되고, 클러스터 내부에서는 Service 이름으로 접근할 수 있다.
+
+```powershell
+backend-service
+ClusterIP: 10.43.100.20
+
+# 내부에서는 이름으로 접근
+backend-service
+# 혹은 DNS 전체 이름으로
+backend-service.default.svc.cluster.local
+# <service-name>.<namespace>.svc.cluster.local
+```
+
+마찬가지로 YAML 파일을 만들어서 사용할 수 있으며, type이 변하게 된다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP # 작성하지 않으면 기본이 ClusterIP이다.
+  ports:
+    - port: 80
+      targetPort: 80
+      # 외부에 열지 않기 때문에 이렇게만 작성하면 된다.
+  selector:
+  app: backend
+```
+
+마찬가지로 백엔드 외에 접근할 계층에 대해 각각 서비스를 만들어주면 된다.
